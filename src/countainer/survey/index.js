@@ -5,7 +5,7 @@ import { MDCRipple } from "@material/ripple";
 import "@material/ripple/dist/mdc.ripple.min.css";
 class survey extends Component {
   state = {
-    page: "3",
+    page: "1",
     question: [
       {
         a: "Хүчээ зарцуулах, олон хүнтэй цуг байх дуртай ",
@@ -706,7 +706,8 @@ class survey extends Component {
     phone: "",
     single: "true",
     current: {},
-    selected_colors: []
+    selected_colors: [],
+    results: {}
   };
   attach_ripple = _ => {
     // attach ripple
@@ -727,10 +728,12 @@ class survey extends Component {
     this.setState({ [name]: value });
   };
   next_quetion = (step, answer) => {
-    if (step === this.state.question.length) this.setState({ page: "3" });
-    else {
-      const { question } = this.state;
-      question[step].key = answer;
+    const { question } = this.state;
+    if (step === this.state.question.length) {
+      question[step - 1].key = answer;
+      this.setState({ page: "3" });
+    } else {
+      question[step - 1].key = answer;
       step++;
       this.setState({
         current: {
@@ -741,18 +744,61 @@ class survey extends Component {
       });
     }
   };
+  render_result = _ => {
+    this.setState({ page: "4" });
+    var i = this.state.question;
+    var t,
+      e,
+      a = 0,
+      r = 0,
+      n = "";
+    for (var l = 0; l < 4; l++) {
+      for (var u = l; u < 20; u += 4) {
+        switch (l) {
+          case 0:
+            t = "E";
+            e = "I";
+            "a" === i[u].key ? r++ : a++;
+            break;
+          case 1:
+            t = "S";
+            e = "N";
+            "a" === i[u].key ? r++ : a++;
+            break;
+          case 2:
+            t = "T";
+            e = "F";
+            "a" === i[u].key ? r++ : a++;
+            break;
+          case 3:
+            t = "J";
+            e = "P";
+            "a" === i[u].key ? r++ : a++;
+            break;
+          default:
+            break;
+        }
+        console.log(l, u);
+      }
+      n += r > a ? t : e;
+      r = 0;
+      a = 0;
+    }
+    var results = this.state.result[n];
+    this.setState({ results });
+  };
   selectColor = e => {
     const { colors } = this.state;
     colors[e].select = !colors[e].select;
     let selected_colors = colors.filter(color => color.select === true);
-    selected_colors.length === 5 && this.setState({ page: "4" });
+    selected_colors.length === 5 && this.render_result();
     this.setState({ colors, selected_colors });
   };
   componentDidUpdate() {
     this.attach_ripple();
   }
   render() {
-    const { page, current, colors } = this.state;
+    const { page, current, colors, results: result } = this.state;
     return (
       <div className="page-survey">
         <div className={page === "2" ? "center" : "up-100 center"}>
@@ -952,6 +998,31 @@ class survey extends Component {
                       </div>
                     );
                   })}
+                </div>
+              </div>
+            )}
+            {page === "4" && (
+              <div style={{ position: "relative" }}>
+                <div className="survey-title color">Танд баярлалаа</div>
+                <div className="survey-desc" />
+                <div className="result-cont">
+                  <div className="result-title">{result.name}</div>
+                  <div className="result desc" style={{}}>
+                    {result.desc}
+                  </div>
+                  <div className="result">{result.about}</div>
+                  <div className="result desc">
+                    Тантай ижил төрлийн алдартнуудыг нэрлэвэл:
+                  </div>
+                  <div className="result">
+                    {result.rel.map((rel, index) => {
+                      return (
+                        <div className="item" key={index}>
+                          {rel}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             )}
