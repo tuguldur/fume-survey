@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/fume-survey/static/css/main.c5e468c4.chunk.css",
+    "main.js": "/fume-survey/static/js/main.e58cae66.chunk.js",
+    "main.js.map": "/fume-survey/static/js/main.e58cae66.chunk.js.map",
+    "runtime-main.js": "/fume-survey/static/js/runtime-main.75b94461.js",
+    "runtime-main.js.map": "/fume-survey/static/js/runtime-main.75b94461.js.map",
+    "static/css/2.b2bd93e9.chunk.css": "/fume-survey/static/css/2.b2bd93e9.chunk.css",
+    "static/js/2.41df4386.chunk.js": "/fume-survey/static/js/2.41df4386.chunk.js",
+    "static/js/2.41df4386.chunk.js.map": "/fume-survey/static/js/2.41df4386.chunk.js.map",
+    "index.html": "/fume-survey/index.html",
+    "precache-manifest.2c60340e1c4cbd2cf1d01f0817d299e4.js": "/fume-survey/precache-manifest.2c60340e1c4cbd2cf1d01f0817d299e4.js",
+    "service-worker.js": "/fume-survey/service-worker.js",
+    "static/css/2.b2bd93e9.chunk.css.map": "/fume-survey/static/css/2.b2bd93e9.chunk.css.map",
+    "static/css/main.c5e468c4.chunk.css.map": "/fume-survey/static/css/main.c5e468c4.chunk.css.map",
+    "static/js/2.41df4386.chunk.js.LICENSE": "/fume-survey/static/js/2.41df4386.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.75b94461.js",
+    "static/css/2.b2bd93e9.chunk.css",
+    "static/js/2.41df4386.chunk.js",
+    "static/css/main.c5e468c4.chunk.css",
+    "static/js/main.e58cae66.chunk.js"
+  ]
+}
