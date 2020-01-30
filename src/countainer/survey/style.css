@@ -66,9 +66,9 @@
   position: relative;
   margin-left: 22px;
 }
-.page-survey .center .survey-cont .questions-cont .content-item .ask .before {
+.label-ask .before {
   position: absolute;
-  left: -22px;
+  top: 33%;
   font-weight: bold;
   font-size: 15px;
 }

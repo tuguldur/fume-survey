@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import "./style.css";
+// ripple
+import { MDCRipple } from "@material/ripple";
+import "@material/ripple/dist/mdc.ripple.min.css";
 class survey extends Component {
   state = {
-    page: "1",
+    page: "3",
     question: [
       {
         a: "Хүчээ зарцуулах, олон хүнтэй цуг байх дуртай ",
@@ -705,6 +708,11 @@ class survey extends Component {
     current: {},
     selected_colors: []
   };
+  attach_ripple = _ => {
+    // attach ripple
+    const ripples = document.querySelectorAll(".ripple");
+    ripples.forEach(ripple => new MDCRipple(ripple));
+  };
   componentDidMount() {
     this.setState({
       current: {
@@ -740,6 +748,9 @@ class survey extends Component {
     selected_colors.length === 5 && this.setState({ page: "4" });
     this.setState({ colors, selected_colors });
   };
+  componentDidUpdate() {
+    this.attach_ripple();
+  }
   render() {
     const { page, current, colors } = this.state;
     return (
@@ -855,7 +866,7 @@ class survey extends Component {
                   </div>
                 </div>
                 <div
-                  className="button"
+                  className="button ripple mdc-ripple-surface"
                   onClick={_ => this.setState({ page: "2" })}
                 >
                   Дараах &gt;
@@ -873,29 +884,23 @@ class survey extends Component {
                 <div className="questions-cont">
                   <div className="content-item">
                     <div>
-                      <div
-                        className="ask a"
-                        onClick={_ => this.next_quetion(current.step, "a")}
-                      >
+                      <div className="position-relative label-ask">
+                        <div
+                          className="ask a ripple mdc-ripple-surface"
+                          onClick={_ => this.next_quetion(current.step, "a")}
+                        >
+                          {current.a}
+                        </div>
                         <div className="before">А</div>
-                        {current.a}
-                        <canvas
-                          height="0"
-                          width="0"
-                          // style="border-radius: inherit; height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"
-                        ></canvas>
                       </div>
-                      <div
-                        className="ask b"
-                        onClick={_ => this.next_quetion(current.step, "b")}
-                      >
+                      <div className="position-relative label-ask">
+                        <div
+                          className="ask b ripple mdc-ripple-surface"
+                          onClick={_ => this.next_quetion(current.step, "b")}
+                        >
+                          {current.b}
+                        </div>
                         <div className="before">Б</div>
-                        {current.b}
-                        <canvas
-                          height="0"
-                          width="0"
-                          // style="border-radius: inherit; height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"
-                        ></canvas>
                       </div>
                     </div>
                   </div>
@@ -928,12 +933,23 @@ class survey extends Component {
                     return (
                       <div
                         key={index}
-                        className={`colors-item ${
-                          color.select === true ? "color-selected" : ""
-                        }`}
+                        className={`colors-item ripple mdc-ripple-surface`}
                         style={{ background: color.color }}
                         onClick={e => this.selectColor(index)}
-                      ></div>
+                      >
+                        <svg
+                          className={color.select ? "color-selected" : "d-none"}
+                          stroke="currentColor"
+                          fill="currentColor"
+                          strokeWidth="0"
+                          viewBox="0 0 512 512"
+                          height="1em"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path>
+                        </svg>
+                      </div>
                     );
                   })}
                 </div>
